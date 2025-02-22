@@ -22,33 +22,12 @@ function run(cmd) {
     })
   })
 }
-/**
- *
-        const questions = [
-          {
-            name: "name",
-            type: "input",
-            message: "What is the Project Name?",
-            default() {
-              return process.cwd().split("\\").pop();
-            },
-          },
-          {
-            name: "framework",
-            type: "list",
-            message: "What framework?",
-            choices: ["react", "express.js", "bootstrap", "vanila"],
-          },
-        ];
-        const project = await inquirer.prompt(questions);
-        options.push(`--${project.framework}`, project.name);
- */
 const cmdModule = {
   "create-website": {
     alias: ["cw", "create_web", "createwebsite", "notes", "take_notes"],
     description: "Creates a website using one of the selected templates",
     options: [],
-    execute: async function (args) {
+    execute: async function(args) {
       // 1 what kinda website
       //  - full stack (express + react)
       //  - react
@@ -177,7 +156,7 @@ const cmdModule = {
     alias: ["h", "-h", "--help"],
     description: "Help command",
     options: [],
-    execute: async function (args) {
+    execute: async function(args) {
       for (let i in cmdModule) {
         console.log(
           color.bold(
@@ -204,8 +183,8 @@ const cmdModule = {
     alias: ["v", "-v", "--version"],
     description: "Shows the current version of tresh",
     options: [],
-    execute: async function (args) {
-      console.log(npmPackage.version);
+    execute: async function(args) {
+      console.log('1.1.0');
       return;
     },
   },
@@ -223,7 +202,7 @@ const cmdModule = {
     ],
     description: "Moves files into preset folders based on their file types.",
     options: ["-c", "--coding"],
-    execute: async function (args) {
+    execute: async function(args) {
       const optionsArr = [];
       args.forEach((value) => {
         if (value.startsWith("-") && this.options.includes(value)) {
@@ -446,65 +425,11 @@ const cmdModule = {
       }
     },
   },
-  install: {
-    alias: ["i"],
-    description: "installs self-made modules",
-    options: ["-patricia"],
-    execute: async function (args) {
-      const optionsArr = [];
-      args.forEach((value) => {
-        if (value.startsWith("-") && this.options.includes(value)) {
-          optionsArr.push(value);
-        }
-      });
-      const filePathArr = args.filter((a) => !optionsArr.includes(a));
-      if (filePathArr.length > 1 || optionsArr.length > 1) {
-        console.log("Invalid Syntax");
-        return;
-      }
-      //re assign the names for options and filepath so that i do not need to keep using index notation
-      const option = optionsArr.pop();
-      const filePath = filePathArr.pop();
-      const absolutePath = path.resolve(
-        process.cwd(),
-        filePath || "",
-        "node_modules",
-        "patricia-db"
-      );
-      if (option == "-patricia") {
-        const spinner = createSpinner("Installing patricia db...").start();
-        await sleep();
-        try {
-          fs.cpSync(
-            "C:\\Users\\JOVAN\\Documents\\coding\\Command line tool\\data\\patricia-db",
-            absolutePath,
-            { force: true, recursive: true }
-          );
-          const initPath = path.resolve(
-            process.cwd(),
-            filePath || "",
-            "package.json"
-          );
-          const npmPackage = JSON.parse(
-            fs.readFileSync(initPath, { encoding: "ascii" })
-          );
-          npmPackage.dependencies["patricia-db"] = "^1.0.0";
-          fs.writeFileSync(initPath, JSON.stringify(npmPackage));
-          spinner.success({ text: "Successfully installed Patricia!" });
-        } catch (err) {
-          spinner.error({ text: err });
-        }
-        return;
-      } else {
-        console.log("That is not a valid package.");
-      }
-    },
-  },
   "create-password": {
     alias: ["cp", "create-pin", "createpassword"],
     description: "This generates a random password for me to use.",
     options: [],
-    execute: async function (args) {
+    execute: async function(args) {
       let length = 8;
       args.forEach((value) => {
         if (value.startsWith("-") && !isNaN(value.slice(1, value.length))) {
