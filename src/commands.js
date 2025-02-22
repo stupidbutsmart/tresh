@@ -1,3 +1,4 @@
+import os from 'os';
 import color from "colors/safe.js";
 import inquirer from "inquirer";
 import nano, { createSpinner } from "nanospinner";
@@ -27,7 +28,7 @@ const cmdModule = {
     alias: ["cw", "create_web", "createwebsite", "notes", "take_notes"],
     description: "Creates a website using one of the selected templates",
     options: [],
-    execute: async function(args) {
+    execute: async function (args) {
       // 1 what kinda website
       //  - full stack (express + react)
       //  - react
@@ -156,7 +157,7 @@ const cmdModule = {
     alias: ["h", "-h", "--help"],
     description: "Help command",
     options: [],
-    execute: async function(args) {
+    execute: async function (args) {
       for (let i in cmdModule) {
         console.log(
           color.bold(
@@ -183,7 +184,7 @@ const cmdModule = {
     alias: ["v", "-v", "--version"],
     description: "Shows the current version of tresh",
     options: [],
-    execute: async function(args) {
+    execute: async function (args) {
       console.log('1.1.0');
       return;
     },
@@ -202,7 +203,7 @@ const cmdModule = {
     ],
     description: "Moves files into preset folders based on their file types.",
     options: ["-c", "--coding"],
-    execute: async function(args) {
+    execute: async function (args) {
       const optionsArr = [];
       args.forEach((value) => {
         if (value.startsWith("-") && this.options.includes(value)) {
@@ -265,7 +266,7 @@ const cmdModule = {
             const targetFolder = folderLocations[extension];
             if (targetFolder) {
               const startPath = path.join(absolutePath, file); //lets us read the file
-              const endPath = `C:\\Users\\JOVAN\\${targetFolder}\\${file}`;
+              const endPath = `C:\\Users\\${os.userInfo().username}\\${targetFolder}\\${file}`;
               fs.copyFile(startPath, endPath, (err) => {
                 if (err) {
                   spinner.error({
@@ -429,7 +430,7 @@ const cmdModule = {
     alias: ["cp", "create-pin", "createpassword"],
     description: "This generates a random password for me to use.",
     options: [],
-    execute: async function(args) {
+    execute: async function (args) {
       let length = 8;
       args.forEach((value) => {
         if (value.startsWith("-") && !isNaN(value.slice(1, value.length))) {
