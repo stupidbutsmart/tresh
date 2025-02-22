@@ -2,6 +2,7 @@
 Tresh is a simple CLI tool with various utility functions.
 
 Video of how to use:
+
 [![Demo Video](https://img.youtube.com/vi/lOrF7G0X5g8/hqdefault.jpg)](https://youtu.be/watch?v=lOrF7G0X5g8)
 
 ## Prerequisites
